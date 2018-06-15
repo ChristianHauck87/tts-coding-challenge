@@ -4,86 +4,91 @@
 	<title>How to solve TTS Challenge</title>
 	<meta charset="utf-8">
 	<script src="https://d3js.org/d3.v5.min.js"></script>
+	<script src = "https://d3js.org/d3-axis.v1.min.js"></script>
 </head>
 <body>
 <h1>The solution</h1>
-	<svg class="bar-chart"></svg>
-	<script type= text/javascript>
-		
-		//defining variables for the bar chart
-		var studentCountByAge = [<%=students[0].length%>,
-								 <%=students[1].length%>, 
-								 <%=students[2].length%>, 
-								 <%=students[3].length%>, 
-								 <%=students[4].length%>, 
-								 <%=students[5].length%>
-								 ];
+	
+	<script>
+	//defining variables for the bar chart
+		var data = 	[<%=students[0].length%>,
+					 <%=students[1].length%>, 
+					 <%=students[2].length%>, 
+					 <%=students[3].length%>, 
+					 <%=students[4].length%>, 
+					 <%=students[5].length%>
+					 ];
 		var ageCohorts = ["<=30", "31-35", "36-40", "41-45", "46-50", ">50"];
-		var svgWidth = 500, svgHeight = 300, barPadding = 5, heightpadding = 15;
-		var barWidth = (svgWidth / studentCountByAge.length);
-		 
+		var margin = {top: 20, bottom: 30, left: 20, right: 20};
+		var width = 600 - margin.left - margin.right; 
+		var height = 400 - margin.top - margin.bottom;
+		var barWidth = width / data.length;
+		var barPadding = 5;
 
-		// creating the drawing area
-		var svg = d3.select('svg')
-		    .attr("width", svgWidth)
-		    .attr("height", svgHeight);
+		// scales
+		var yScale = d3.scaleLinear()
+		    .domain([0, d3.max(data)])
+		    .range([0, height - margin.top]);
 
-	    
-	    // scales
-	    var yScale = d3.scaleLinear()
-		    .domain([0, d3.max(studentCountByAge)])
-		    .range([0, svgHeight - heightpadding]);
+	    var xAxisScale = d3.scaleLinear()
+	    	.domain([0, width])
+	    	.range([0, width]);
 
-		var yaxisScale = d3.scaleLinear()
-	    	.domain([0, d3.max(studentCountByAge)])
-	    	.range([svgHeight, 0]);
-		    
-		
+	    var yAxisScale = d3.scaleLinear()
+	    	.domain([0, d3.max(data)])
+	    	.range([height - margin.top, 0]);
+
+		// creating drawing area
+		var svg = d3.select("body").append("svg")
+				.attr("width", width + margin.left + margin.right)
+				.attr("height", height + margin.top + margin.bottom);
+
 		// creating the bar chart
 		var barChart = svg.selectAll("rect")
-		    .data(studentCountByAge)
+		    .data(data)
 		    .enter()
 		    .append("rect")
-		    .attr("y", function(d) {
-		         return svgHeight - yScale(d)
-		    })
-		    .attr("height", function(d) { 
-		        return yScale(d); 
-		    })
-		    .attr("width", barWidth - barPadding)
-		    .attr("transform", function (d, i) {
-		        var translate = [barWidth * i, 0]; 
-		        return "translate("+ translate +")";
-		    })
-		    .attr("fill", "#8CC8FA");
+    		.attr("y", function(d) {return height - yScale(d);})
+    		.attr("height", function(d) {return yScale(d);})
+    		.attr("width", barWidth - barPadding)
+    		.attr("transform", function (d, i) {
+    			var translate = [barWidth * i + margin.left + margin.right, 0]; 
+        		return "translate("+ translate +")";
+    		})
+    		.attr("fill", "#8CC8FA");
 
-	    // creating labels
-	    var text = svg.selectAll("text")
-		    .data(studentCountByAge)
-		    .enter()
-		    .append("text")
-		    .text(function(d) {
-		        return d;
-		    })
-		    .attr("y", function(d, i) {
-		        return svgHeight - yScale(d) - 2;
-		    })
-		    .attr("x", function(d, i) {
-		        return barWidth * i + barWidth/2;
-		    })
-		    .attr("fill", "#000000");
 
-		// creating the axes
-		var y_axis = d3.axisLeft().scale(yaxisScale);
+    		// creating labels
+	    	var text = svg.selectAll("text")
+			    .data(data)
+			    .enter()
+			    .append("text")
+			    .text(function(d) {
+			        return d;
+			    })
+			    .attr("y", function(d, i) {
+			        return height - yScale(d) - 2;
+			    })
+			    .attr("x", function(d, i) {
+			        return (barWidth * i + margin.left + margin.right) + (barWidth - data.length*barPadding)/ 2;
+			    })
+			    .attr("fill", "#000000");
+
+			    // creating the axes
+				var yAxis = d3.axisLeft().scale(yAxisScale);
          
 				svg.append("g")
-    			.attr("transform", "translate(50, 10)")
-    			.call(y_axis);
+    			.attr("transform", "translate(35, 20)")
+    			.call(yAxis);
+
+    			var xAxis = d3.axisBottom().scale(xAxisScale);
+         
+				svg.append("g")
+    			.attr("transform", "translate(40, 355)")
+    			.call(xAxis);
 
 
-	</script>
 
-
-
+		</script>
 </body>
 </html>

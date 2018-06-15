@@ -1,8 +1,12 @@
 var express = require('express');
+var path = require('path'); 
 var fs = require('fs');
 var sort = require ('./sortalgo.js')
 
 var app = express();
+
+// set a stativ path to serve css and js files
+app.use(express.static('public'))
 
 // setup view engine
 app.set('view engine', 'ejs');
