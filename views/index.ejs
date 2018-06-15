@@ -10,6 +10,7 @@
 	<svg class="bar-chart"></svg>
 	<script type= text/javascript>
 		
+		//defining variables for the bar chart
 		var studentCountByAge = [<%=students[0].length%>,
 								 <%=students[1].length%>, 
 								 <%=students[2].length%>, 
@@ -22,14 +23,23 @@
 		var barWidth = (svgWidth / studentCountByAge.length);
 		 
 
+		// creating the drawing area
 		var svg = d3.select('svg')
 		    .attr("width", svgWidth)
 		    .attr("height", svgHeight);
 
+	    
+	    // scales
 	    var yScale = d3.scaleLinear()
 		    .domain([0, d3.max(studentCountByAge)])
 		    .range([0, svgHeight - heightpadding]);
+
+		var yaxisScale = d3.scaleLinear()
+	    	.domain([0, d3.max(studentCountByAge)])
+	    	.range([svgHeight, 0]);
 		    
+		
+		// creating the bar chart
 		var barChart = svg.selectAll("rect")
 		    .data(studentCountByAge)
 		    .enter()
@@ -44,8 +54,10 @@
 		    .attr("transform", function (d, i) {
 		        var translate = [barWidth * i, 0]; 
 		        return "translate("+ translate +")";
-		    });
+		    })
+		    .attr("fill", "#8CC8FA");
 
+	    // creating labels
 	    var text = svg.selectAll("text")
 		    .data(studentCountByAge)
 		    .enter()
@@ -57,9 +69,16 @@
 		        return svgHeight - yScale(d) - 2;
 		    })
 		    .attr("x", function(d, i) {
-		        return barWidth * i;
+		        return barWidth * i + barWidth/2;
 		    })
-		    .attr("fill", "#A64C38");
+		    .attr("fill", "#000000");
+
+		// creating the axes
+		var y_axis = d3.axisLeft().scale(yaxisScale);
+         
+				svg.append("g")
+    			.attr("transform", "translate(50, 10)")
+    			.call(y_axis);
 
 
 	</script>
