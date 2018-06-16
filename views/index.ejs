@@ -9,6 +9,64 @@
 <body>
 <h1>The solution</h1>
 	
+	<chart></chart>
+	<table>
+  		<tr>
+    		<th>Firstname</th>
+		 	<th>Lastname</th> 
+    		<th>Age</th>
+  		</tr>
+		<% for (var i = 0; i < students[0].length; i++) { %>
+   			<tr>
+      			<td><%= students[0][i].studentid %></td>
+      			<td><%= students[0][i].first_name %></td>
+      			<td><%= students[0][i].last_name %></td>
+      			<td><%= students[0][i].age %></td>
+      		</tr>
+   		<% } %>
+   		<% for (var i = 0; i < students[1].length; i++) { %>
+   			<tr>
+      			<td><%= students[1][i].studentid %></td>
+      			<td><%= students[1][i].first_name %></td>
+      			<td><%= students[1][i].last_name %></td>
+      			<td><%= students[1][i].age %></td>
+      		</tr>
+   		<% } %>
+   		<% for (var i = 0; i < students[2].length; i++) { %>
+   			<tr>
+      			<td><%= students[2][i].studentid %></td>
+      			<td><%= students[2][i].first_name %></td>
+      			<td><%= students[2][i].last_name %></td>
+      			<td><%= students[2][i].age %></td>
+      		</tr>
+   		<% } %>
+   		<% for (var i = 0; i < students[3].length; i++) { %>
+   			<tr>
+      			<td><%= students[3][i].studentid %></td>
+      			<td><%= students[3][i].first_name %></td>
+      			<td><%= students[3][i].last_name %></td>
+      			<td><%= students[3][i].age %></td>
+      		</tr>
+   		<% } %>
+   		<% for (var i = 0; i < students[4].length; i++) { %>
+   			<tr>
+      			<td><%= students[4][i].studentid %></td>
+      			<td><%= students[4][i].first_name %></td>
+      			<td><%= students[4][i].last_name %></td>
+      			<td><%= students[4][i].age %></td>
+      		</tr>
+   		<% } %>
+   		<% for (var i = 0; i < students[5].length; i++) { %>
+   			<tr>
+      			<td><%= students[5][i].studentid %></td>
+      			<td><%= students[5][i].first_name %></td>
+      			<td><%= students[5][i].last_name %></td>
+      			<td><%= students[5][i].age %></td>
+      		</tr>
+   		<% } %>
+   	</table>
+	
+
 	<script>
 	//defining variables for the bar chart
 		var data = 	[<%=students[0].length%>,
@@ -40,7 +98,7 @@
 	    	.range([height - margin.top, 0]);
 
 		// creating drawing area
-		var svg = d3.select("body").append("svg")
+		var svg = d3.select("chart").append("svg")
 				.attr("width", width + margin.left + margin.right)
 				.attr("height", height + margin.top + margin.bottom);
 
@@ -101,14 +159,52 @@
 			svg.append("g")
 			.attr("transform", "translate(35, 20)")
 			.call(yAxis);
+			
 
-			/*var xAxis = d3.axisBottom().scale(xAxisScale);
+		/*var xAxis = d3.axisBottom().scale(xAxisScale);
      
 			svg.append("g")
 			.attr("transform", "translate(40, 355)")
 			.selectAll("text").remove()
 			.call(xAxis);*/
 
+		/*function tabulate(students, columns) {
+		var table = d3.select('body').append('table')
+		var thead = table.append('thead')
+		var	tbody = table.append('tbody');
+
+		// append the header row
+		thead.append('tr')
+		  .selectAll('th')
+		  .data(columns).enter()
+		  .append('th')
+		    .text(function (column) { return column; });
+
+		// create a row for each object in the data
+		var rows = tbody.selectAll('tr')
+		  .data(data)
+		  .enter()
+		  .append('tr');
+
+		// create a cell in each row for each column
+		var cells = rows.selectAll('td')
+		  .data(function (row) {
+		    return columns.map(function (column) {
+		      return {column: column, value: row[column]};
+		    });
+		  })
+		  .enter()
+		  .append('td')
+		    .text(function (d) { return d.value; });
+
+	  return table;
+	}
+
+	tabulate(data, ["studentid", "first_name", "last_name", "age"]);
+
+	//<%=students[0][0].studentid%>
+
+		/*
 		// render table
 		// table head
 		var table = d3.select("body").append("table");
@@ -141,7 +237,7 @@
 		.append("td")
 		.text(function(d, i){
 			return d.value;
-		})
+		})*/
 
 
 
