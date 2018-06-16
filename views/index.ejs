@@ -30,9 +30,9 @@
 		    .domain([0, d3.max(data)])
 		    .range([0, height - margin.top]);
 
-	    var xAxisScale = d3.scaleLinear()
+	    /*var xAxisScale = d3.scaleLinear()
 	    	.domain([0, width])
-	    	.range([0, width]);
+	    	.range([0, width]);*/
 
 	    var yAxisScale = d3.scaleLinear()
 	    	.domain([0, d3.max(data)])
@@ -59,10 +59,12 @@
 
 
     		// creating labels
-	    	var text = svg.selectAll("text")
+    		// labels top
+	    	var labelstop = svg.selectAll("text.value")
 			    .data(data)
 			    .enter()
 			    .append("text")
+			    .attr("class", "value")
 			    .text(function(d) {
 			        return d;
 			    })
@@ -70,8 +72,27 @@
 			        return height - yScale(d) - 2;
 			    })
 			    .attr("x", function(d, i) {
-			        return (barWidth * i + margin.left + margin.right) + (barWidth - data.length*barPadding)/ 2;
+			        return (barWidth * i + margin.left + margin.right) + barWidth / 2 - barPadding;
 			    })
+			    .attr("text-anchor", "middle")
+			    .attr("fill", "#000000");
+		    
+		    // labels bar bottom
+	    	var labelsbot = svg.selectAll("text.label")
+			    .data(ageCohorts)
+			    .enter()
+			    .append("text")
+			    .attr("class", "label")
+			    .text(function(d) {
+			        return d;
+			    })
+			    .attr("y", function() {
+			        return height - barPadding;
+			    })
+			    .attr("x", function(d, i) {
+			        return (barWidth * i + margin.left + margin.right) + barWidth / 2 - barPadding;
+			    })
+			    .attr("text-anchor", "middle")
 			    .attr("fill", "#000000");
 
 			    // creating the axes
@@ -81,12 +102,12 @@
     			.attr("transform", "translate(35, 20)")
     			.call(yAxis);
 
-    			var xAxis = d3.axisBottom().scale(xAxisScale);
+    			/*var xAxis = d3.axisBottom().scale(xAxisScale);
          
 				svg.append("g")
     			.attr("transform", "translate(40, 355)")
-    			.call(xAxis);
-
+    			.selectAll("text").remove()
+    			.call(xAxis);*/
 
 
 		</script>
