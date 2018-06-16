@@ -4,7 +4,7 @@
 	<title>How to solve TTS Challenge</title>
 	<meta charset="utf-8">
 	<script src="https://d3js.org/d3.v5.min.js"></script>
-	<script src = "https://d3js.org/d3-axis.v1.min.js"></script>
+	<script src ="https://d3js.org/d3-axis.v1.min.js"></script>
 </head>
 <body>
 <h1>The solution</h1>
@@ -19,6 +19,7 @@
 					 <%=students[5].length%>
 					 ];
 		var ageCohorts = ["<=30", "31-35", "36-40", "41-45", "46-50", ">50"];
+		var columns = ["Student ID", "First Name", "Last Name", "Age"];
 		var margin = {top: 20, bottom: 30, left: 20, right: 20};
 		var width = 600 - margin.left - margin.right; 
 		var height = 400 - margin.top - margin.bottom;
@@ -57,57 +58,93 @@
     		})
     		.attr("fill", "#8CC8FA");
 
-
-    		// creating labels
-    		// labels top
-	    	var labelstop = svg.selectAll("text.value")
-			    .data(data)
-			    .enter()
-			    .append("text")
-			    .attr("class", "value")
-			    .text(function(d) {
-			        return d;
-			    })
-			    .attr("y", function(d, i) {
-			        return height - yScale(d) - 2;
-			    })
-			    .attr("x", function(d, i) {
-			        return (barWidth * i + margin.left + margin.right) + barWidth / 2 - barPadding;
-			    })
-			    .attr("text-anchor", "middle")
-			    .attr("fill", "#000000");
+		// creating labels
+		// labels top
+    	var labelstop = svg.selectAll("text.value")
+		    .data(data)
+		    .enter()
+		    .append("text")
+		    .attr("class", "value")
+		    .text(function(d) {
+		        return d;
+		    })
+		    .attr("y", function(d, i) {
+		        return height - yScale(d) - 2;
+		    })
+		    .attr("x", function(d, i) {
+		        return (barWidth * i + margin.left + margin.right) + barWidth / 2 - barPadding;
+		    })
+		    .attr("text-anchor", "middle")
+		    .attr("fill", "#000000");
 		    
-		    // labels bar bottom
-	    	var labelsbot = svg.selectAll("text.label")
-			    .data(ageCohorts)
-			    .enter()
-			    .append("text")
-			    .attr("class", "label")
-			    .text(function(d) {
-			        return d;
-			    })
-			    .attr("y", function() {
-			        return height - barPadding;
-			    })
-			    .attr("x", function(d, i) {
-			        return (barWidth * i + margin.left + margin.right) + barWidth / 2 - barPadding;
-			    })
-			    .attr("text-anchor", "middle")
-			    .attr("fill", "#000000");
+	    // labels bar bottom
+    	var labelsbot = svg.selectAll("text.label")
+		    .data(ageCohorts)
+		    .enter()
+		    .append("text")
+		    .attr("class", "label")
+		    .text(function(d) {
+		        return d;
+		    })
+		    .attr("y", function() {
+		        return height - barPadding;
+		    })
+		    .attr("x", function(d, i) {
+		        return (barWidth * i + margin.left + margin.right) + barWidth / 2 - barPadding;
+		    })
+		    .attr("text-anchor", "middle")
+		    .attr("fill", "#000000");
 
-			    // creating the axes
-				var yAxis = d3.axisLeft().scale(yAxisScale);
-         
-				svg.append("g")
-    			.attr("transform", "translate(35, 20)")
-    			.call(yAxis);
+		    // creating the axes
+			var yAxis = d3.axisLeft().scale(yAxisScale);
+     
+			svg.append("g")
+			.attr("transform", "translate(35, 20)")
+			.call(yAxis);
 
-    			/*var xAxis = d3.axisBottom().scale(xAxisScale);
-         
-				svg.append("g")
-    			.attr("transform", "translate(40, 355)")
-    			.selectAll("text").remove()
-    			.call(xAxis);*/
+			/*var xAxis = d3.axisBottom().scale(xAxisScale);
+     
+			svg.append("g")
+			.attr("transform", "translate(40, 355)")
+			.selectAll("text").remove()
+			.call(xAxis);*/
+
+		// render table
+		// table head
+		var table = d3.select("body").append("table");
+		var thead = table.append("thead");
+		var tbody = table.append("tbody");
+
+		thead.append("tr")
+		.selectAll("th")
+		.data(columns)
+		.enter()
+		.append("th")
+		.text(function(d, i){return d});
+
+		//table body
+		var rows = tbody.selectAll("tr")
+		.data(data[0])
+		.enter()
+		.append("tr");
+
+		var cells = rows.selectAll("td")
+		.data(function(row){
+			return columns.map(function(columns){
+				return{
+					columns:columns,
+					value:row[columns]
+				}
+			})
+		})
+		.enter()
+		.append("td")
+		.text(function(d, i){
+			return d.value;
+		})
+
+
+
 
 
 		</script>
