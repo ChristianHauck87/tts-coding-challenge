@@ -12,12 +12,13 @@
 	<chart></chart>
 	<table>
   		<tr>
-    		<th>Firstname</th>
+    		<th>Student ID</th>
+		 	<th>Firstname</th>
 		 	<th>Lastname</th> 
     		<th>Age</th>
   		</tr>
 		<% for (var i = 0; i < students[0].length; i++) { %>
-   			<tr>
+   			<tr id="0">
       			<td><%= students[0][i].studentid %></td>
       			<td><%= students[0][i].first_name %></td>
       			<td><%= students[0][i].last_name %></td>
@@ -25,7 +26,7 @@
       		</tr>
    		<% } %>
    		<% for (var i = 0; i < students[1].length; i++) { %>
-   			<tr>
+   			<tr id="1">
       			<td><%= students[1][i].studentid %></td>
       			<td><%= students[1][i].first_name %></td>
       			<td><%= students[1][i].last_name %></td>
@@ -33,7 +34,7 @@
       		</tr>
    		<% } %>
    		<% for (var i = 0; i < students[2].length; i++) { %>
-   			<tr>
+   			<tr id="2">
       			<td><%= students[2][i].studentid %></td>
       			<td><%= students[2][i].first_name %></td>
       			<td><%= students[2][i].last_name %></td>
@@ -41,7 +42,7 @@
       		</tr>
    		<% } %>
    		<% for (var i = 0; i < students[3].length; i++) { %>
-   			<tr>
+   			<tr id="3">
       			<td><%= students[3][i].studentid %></td>
       			<td><%= students[3][i].first_name %></td>
       			<td><%= students[3][i].last_name %></td>
@@ -49,7 +50,7 @@
       		</tr>
    		<% } %>
    		<% for (var i = 0; i < students[4].length; i++) { %>
-   			<tr>
+   			<tr id="4">
       			<td><%= students[4][i].studentid %></td>
       			<td><%= students[4][i].first_name %></td>
       			<td><%= students[4][i].last_name %></td>
@@ -57,7 +58,7 @@
       		</tr>
    		<% } %>
    		<% for (var i = 0; i < students[5].length; i++) { %>
-   			<tr>
+   			<tr id="5">
       			<td><%= students[5][i].studentid %></td>
       			<td><%= students[5][i].first_name %></td>
       			<td><%= students[5][i].last_name %></td>
