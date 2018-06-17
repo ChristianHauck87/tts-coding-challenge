@@ -17,7 +17,7 @@
 
 	<img src="wireframe.png">
 
-	3. Turn the bar chart into a filter: When a user clicks a bar, display only the values corresponding to that bar, i.e. only the line which belong to the selected age cohort. Highlight the active filter in the bar chart.
+	3. Turn the bar chart into a filter: When a user clicks a bar, display only the values corresponding to that bar, i.e. only the line which belongs to the selected age cohort. Highlight the active filter in the bar chart.
 	4. Document your code inside the code, and write a short summary into the file myjourney.md.
 
 3. Used Tools
@@ -40,5 +40,6 @@
 - Sublime Text 3 as text editor
 - gitbash (as console )
 - GitHub Desktop for commits and publish
+- stackoverlfow and other web and api documentations
 - Chrome as default browser and for inspecting elements and errors
 	
