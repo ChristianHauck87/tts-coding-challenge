@@ -5,6 +5,8 @@
 	<meta charset="utf-8">
 	<script src="https://d3js.org/d3.v5.min.js"></script>
 	<script src ="https://d3js.org/d3-axis.v1.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 	<style type="text/css">
 		body {
   			font-family: Univers, Arial, sans-serif;
@@ -58,7 +60,7 @@
 	</style>
 </head>
 <body>
-<h1>The solution</h1>
+<h1>A Bar Chart with Age Cohorts</h1>
 	<chart></chart>
 	
 	<table class="minimalistBlack">
@@ -143,10 +145,6 @@
 		    .domain([0, d3.max(data)])
 		    .range([0, height - margin.top]);
 
-	    /*var xAxisScale = d3.scaleLinear()
-	    	.domain([0, width])
-	    	.range([0, width]);*/
-
 	    var yAxisScale = d3.scaleLinear()
 	    	.domain([0, d3.max(data)])
 	    	.range([height - margin.top, 0]);
@@ -169,9 +167,10 @@
     			var translate = [barWidth * i + margin.left + margin.right, 0]; 
         		return "translate("+ translate +")";
     		})
-    		.attr("class", "button")
+    		.attr("class", function(d, i){return "button"+i})
     		.attr("fill", "#8CC8FA");
 
+		// adding clickable remove filter text
 		var remove = svg.selectAll("text.remove")
 		    .data(remove)
 		    .enter()
@@ -181,16 +180,18 @@
 		    .text(function(d) {return d;})
 		    .attr("y", function() {return height + margin.top;})
 		    .attr("x", width - 3*margin.right)
-		    .attr("fill", "#000000");
+		    .attr("fill", "#000000")
+		    .style("opacity", "0");
 
+	    // 
+	    var table1 = d3.selectAll("agezero")
 		remove.on("click", function(d){
 			d3.selectAll("rect")
     		.transition()
     		.duration(500)
     		.style("fill", "#8CC8FA")
-
+    		remove.style("opacity","0")
     	});
-
 
     	barChart.on("click", function(d){
     		d3.selectAll("rect")
@@ -202,13 +203,7 @@
     		.transition()
     		.duration(500)
     		.style("fill", "#99ff99")
-    	});
-		 	
-		barChart.on("click", function(d){
-    		d3.select("agezero")
-    		.transition()
-    		.duration(500)
-    		.style("fill", "#99ff99")
+    		remove.style("opacity","100")
     	});
 			
 
@@ -255,6 +250,37 @@
 			svg.append("g")
 			.attr("transform", "translate(35, 20)")
 			.call(yAxis);
+		</script>
+		<script>
+			$(document).ready(function(){
+    			$(".button0").click(function(){
+        			$(".agezero, .ageone, .agetwo, .agethree, .agefour, .agefive").hide();
+        			$(".agezero").show();
+    			});
+    			$(".button1").click(function(){
+        			$(".agezero, .ageone, .agetwo, .agethree, .agefour, .agefive").hide();
+        			$(".ageone").show();
+    			});
+    			$(".button2").click(function(){
+        			$(".agezero, .ageone, .agetwo, .agethree, .agefour, .agefive").hide();
+        			$(".agetwo").show();
+    			});
+    			$(".button3").click(function(){
+        			$(".agezero, .ageone, .agetwo, .agethree, .agefour, .agefive").hide();
+        			$(".agethree").show();
+    			});
+    			$(".button4").click(function(){
+        			$(".agezero, .ageone, .agetwo, .agethree, .agefour, .agefive").hide();
+        			$(".agefour").show();
+    			});
+    			$(".button5").click(function(){
+        			$(".agezero, .ageone, .agetwo, .agethree, .agefour, .agefive").hide();
+        			$(".agefive").show();
+    			});
+    			$(".remove").click(function(){
+        			$(".agezero, .ageone, .agetwo, .agethree, .agefour, .agefive").show();
+    			});
+			});
 		</script>
 </body>
 </html>
