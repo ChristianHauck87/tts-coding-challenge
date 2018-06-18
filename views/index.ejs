@@ -6,61 +6,14 @@
 	<script src="https://d3js.org/d3.v5.min.js"></script>
 	<script src ="https://d3js.org/d3-axis.v1.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href = "/static/style.css">
+	<script src = "/static/barchart.js"/></script>
+	<script src = "/static/click.js"/></script>
 
-	<style type="text/css">
-		body {
-  			font-family: Univers, Arial, sans-serif;
-		}
-	 	
-		h1   {
-				width: 600px;
-				margin: auto;
-		}
-		
-		svg{
-				display: block ;
-				margin: auto;
-    		
-		}
-	 	table.minimalistBlack {
-				border: 3px solid #000000;
-				background-color: #E5E5E5;
-				width: 600px;
-				text-align: left;
-				border-collapse: collapse;
-				margin: auto;
-		}
-		table.minimalistBlack td, table.minimalistBlack th {
-				border: 1px solid #000000;
-				padding: 5px 4px;
-		}
-		table.minimalistBlack tbody td {
-				font-size: 13px;
-				color: #000000;
-		}
-		table.minimalistBlack tr:nth-child(even) {
-		  		background: #FFFFFF;
-		}
-		table.minimalistBlack thead {
-				background: #B7B7B7;
-				background: -moz-linear-gradient(top, #c9c9c9 0%, #bebebe 66%, #B7B7B7 100%);
-				background: -webkit-linear-gradient(top, #c9c9c9 0%, #bebebe 66%, #B7B7B7 100%);
-				background: linear-gradient(to bottom, #c9c9c9 0%, #bebebe 66%, #B7B7B7 100%);
-		}
-		table.minimalistBlack thead th {
-				font-size: 15px;
-				font-weight: bold;
-				color: #000000;
-				text-align: left;
-		}
-		table.minimalistBlack tfoot td {
-	  			font-size: 14px;
-		}
-
-	</style>
 </head>
 <body>
 <h1>A Bar Chart with Age Cohorts</h1>
+	
 	<chart></chart>
 	
 	<table class="minimalistBlack">
@@ -119,9 +72,7 @@
       		</tr>
    		<% } %>
    	</table>
-	
-
-	<script>
+   	<script>
 	//defining variables for the bar chart
 		var data = 	[<%=students[0].length%>,
 					 <%=students[1].length%>, 
@@ -250,37 +201,7 @@
 			svg.append("g")
 			.attr("transform", "translate(35, 20)")
 			.call(yAxis);
-		</script>
-		<script>
-			$(document).ready(function(){
-    			$(".button0").click(function(){
-        			$(".agezero, .ageone, .agetwo, .agethree, .agefour, .agefive").hide();
-        			$(".agezero").show();
-    			});
-    			$(".button1").click(function(){
-        			$(".agezero, .ageone, .agetwo, .agethree, .agefour, .agefive").hide();
-        			$(".ageone").show();
-    			});
-    			$(".button2").click(function(){
-        			$(".agezero, .ageone, .agetwo, .agethree, .agefour, .agefive").hide();
-        			$(".agetwo").show();
-    			});
-    			$(".button3").click(function(){
-        			$(".agezero, .ageone, .agetwo, .agethree, .agefour, .agefive").hide();
-        			$(".agethree").show();
-    			});
-    			$(".button4").click(function(){
-        			$(".agezero, .ageone, .agetwo, .agethree, .agefour, .agefive").hide();
-        			$(".agefour").show();
-    			});
-    			$(".button5").click(function(){
-        			$(".agezero, .ageone, .agetwo, .agethree, .agefour, .agefive").hide();
-        			$(".agefive").show();
-    			});
-    			$(".remove").click(function(){
-        			$(".agezero, .ageone, .agetwo, .agethree, .agefour, .agefive").show();
-    			});
-			});
-		</script>
+	</script>
+	
 </body>
 </html>
